@@ -1,0 +1,42 @@
+includeiostream
+#includethread
+#includemutex
+#includecondition_variable
+#includechrono
+
+using namespace std;
+
+mutex m;
+condition_variable cv;
+bool ready = false;
+
+void counter(int i, int j){
+    unique_lockmutex lock(m);
+    cv.wait(lock, []{return ready;});
+    if(ij){
+        for(int a=i; a=j; a--){
+            couta ;
+        }
+    }
+    else{
+        for(int a=i; a=j; a++){
+            couta ;
+        }
+    }
+    coutendl;
+}
+
+int main(){
+    thread worker1(counter, 1, 100);
+    thread worker2(counter, 100, 1);
+
+    this_threadsleep_for(chronoseconds(2));
+    {
+        lock_guardmutex lock(m);
+        ready = true;
+    }
+    cv.notify_all();
+    worker1.join();
+    worker2.join();
+    return 0;
+}
